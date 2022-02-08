@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { dbService, storageService } from 'fbase';
 import { addDoc, collection } from 'firebase/firestore';
-
 import { v4 as uuidv4 } from 'uuid';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+
 const NweetFactory = ({ userObj }) => {
   const [nweet, setNweet] = useState('');
   const [attachment, setAttachment] = useState('');
@@ -51,15 +54,18 @@ const NweetFactory = ({ userObj }) => {
   };
   const onClearAttackment = () => setAttachment('');
   return (
+    // fatoryform
     <form onSubmit={onSubmit}>
-      <input
-        value={nweet}
-        onChange={onChange}
-        type="text"
-        placeholder="what's on your mind?"
-        maxLength={120}
-      />
-      <input type="file" accept="imgae/*" onChange={onFileChange} />
+      <div>
+        <input
+          value={nweet}
+          onChange={onChange}
+          type="text"
+          placeholder="what's on your mind?"
+          maxLength={120}
+        />
+        <input type="file" accept="imgae/*" onChange={onFileChange} />
+      </div>
       <input type="submit" value="Nweet" />
       {attachment && (
         <div>

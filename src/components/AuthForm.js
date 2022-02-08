@@ -4,6 +4,43 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const AuthInput = styled.input`
+  width: 100%;
+  max-width: 320px;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: black;
+`;
+const AuthSubmit = styled(AuthInput)`
+  font-size: 14px;
+  text-align: center;
+  background: #04aaff;
+  color: white;
+  margin-top: 10px;
+  cursor: pointer;
+`;
+
+const AuthError = styled.span`
+  color: tomato;
+  text-align: center;
+  font-weight: 500;
+  font-size: 15px;
+`;
+
+const AuthSwitch = styled.span`
+  color: #04aaff;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  display: block;
+  font-size: 15px;
+  text-align: center;
+`;
 
 const AuthForm = () => {
   const [email, setEmail] = useState('');
@@ -40,8 +77,8 @@ const AuthForm = () => {
   const toggleAccount = () => setNewAccount((prev) => !prev);
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input
+      <form onSubmit={onSubmit} className="container">
+        <AuthInput
           name="email"
           type="email"
           placeholder="Email"
@@ -49,7 +86,7 @@ const AuthForm = () => {
           value={email}
           onChange={onChange}
         />
-        <input
+        <AuthInput
           name="password"
           type="password"
           placeholder="Password"
@@ -57,12 +94,15 @@ const AuthForm = () => {
           value={password}
           onChange={onChange}
         />
-        <input type="submit" value={newAccount ? 'Create Account' : 'Log in'} />
-        {error}
+        <AuthSubmit
+          type="submit"
+          value={newAccount ? 'Create Account' : 'Log in'}
+        />
+        {{ error } && <AuthError> {error}</AuthError>}
       </form>
-      <span onClick={toggleAccount}>
+      <AuthSwitch onClick={toggleAccount}>
         {newAccount ? 'Sign in' : 'Create Account'}
-      </span>
+      </AuthSwitch>
     </>
   );
 };
